@@ -1,0 +1,358 @@
+<!-- still need to handle: 
+1. delete
+2. show box and email 
+ -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>STUDY BUDDY-Requests Page</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/requests style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+
+
+</head>
+
+<body>
+
+  </div>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <div class="header" id="nav">
+    <div class="row">
+
+      <div class="col">
+        <img src="{% static 'img/sidebar.png' %} " alt="sidebar" class="sidebar" id="sidebar">
+        <div class="btn-group" id="DD">
+          <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false" id="dropbutton">
+            Choose page
+          </button>
+          <ul class="dropdown-menu">
+            <li style="border-bottom:2px solid black;" id="received">Requests received </li>
+            <li id="sent">Requests sent </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-6" id="name">
+
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebox" id="sideB">
+    <ul>
+      <a href="profile">
+        <li> Profile</li>
+      </a>
+      <!-- need to add these pages to url so change their names in href when u add them, the pages are about us and profile and sign_out -->
+      <a href='request/'>
+        <li>Main Page</li>
+      </a>
+      <a href="about_us">
+        <li> About us</li>
+      </a>
+      <a href="sign_out">
+        <li> Sign out</li>
+      </a>
+    </ul>
+  </div>
+  <div class="page" id="page" style="overflow:scroll;">
+
+    
+    <div class="carde" id="card" >
+      <div class="profile"> </div>
+      <div class="username">username</div>
+      <div class="status" id="status">Pending</div>
+      <div class="status2" id="status">Accepted</div>
+
+
+
+      <div class="aamoud"></div>
+      <div class="text" style="margin-left:0;">Course:</div>
+      <div class="text" id="k">Knowledge level: </div>
+
+      <div class="text" id="DES">Description: </div>
+      <div class="description">Description would be here</div>
+      <div class="SBrequest btn btn-primary" id="request">Delete this request</div>
+      <button type="button" id="request2" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Organize a session!
+      </button>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel" style="
+          font-size:30px;">Organize a request!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="input-group">
+                <div>Are you and this user are both interested in organizing a study session together? Contact them via
+                  their email which is: </div>
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal"
+                  style="margin-right:40px">Close</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+      <script src="feed.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+      <script>
+
+
+        console.log("start");
+        let courses;
+        let feedData;
+        let users;
+        let requests;
+        let userId = 12;
+
+
+
+        // Create a Promise to fetch the data
+        const fetchDataPromise = new Promise((resolve, reject) => {
+          fetch('/feedtable/')
+            .then(response => response.json())
+            .then(data => {
+              courses = data.course_table;
+              feedData = data.feedtable;
+              users = data.sign_up_pages_user;
+              requests = data.requesttable;
+              userId = data.user_id;
+              console.log("userID", userId);
+              console.log("users", users);
+              console.log("courses:", courses);
+              console.log("feed", feedData);
+              console.log("requests:", requests);
+              resolve(data);
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+              reject(error);
+            });
+        });
+
+        // Use the fetched data outside the fetch function
+        fetchDataPromise.then(data => {
+
+          processData(data);
+        });
+
+        function processData(data) {
+
+
+
+
+          const cardContainer = document.getElementById('page');
+          const nestedRequests = requests[0];
+          const nestedFeed = feedData[0];
+          const nestedCourses = courses[0];
+          const nestedUsers = users[0];
+
+          function createCard(feed_Data) {
+            const card = document.createElement('div');
+            card.classList.add('carde');
+
+            const feedItem = nestedFeed.find(feedArray => feedArray[0] === feed_Data[2]);
+
+            if (feedItem === undefined) {
+              console.warn("Feed item not found in nestedFeed");
+            } else {
+
+              // console.log("honn",nestedUsers[0][0]);
+              // console.log("hon",feedItem[0]);
+
+              const ownerInfo = nestedUsers.find(userArray => userArray[0] === feedItem[1]);
+              if (ownerInfo === undefined) {
+
+                console.warn("User item not found in nestedFeed");
+              } else {
+
+
+                card.classList.add('carde');
+
+                const profile = document.createElement('div');
+                profile.classList.add('profile');
+
+                const username = document.createElement('div');
+                username.classList.add('username');
+                username.textContent = `${ownerInfo[1]} ${ownerInfo[2]}`;
+
+                const statusElement = document.getElementById('status');
+                console.log('Feed Data:', feed_Data[4]); // Add this line to check the value
+
+                if (feed_Data[4] === 'Pending') {
+                  statusElement.textContent = 'Pending';
+                  statusElement.classList.remove('status2');
+                  statusElement.classList.add('status');
+                } else if (feed_Data[4] === 'Approved') {
+                  statusElement.textContent = 'Approved';
+                  statusElement.classList.remove('status');
+                  statusElement.classList.add('status2');
+                }
+
+                statusElement.style.display = 'block';
+
+
+
+
+
+                const aamoud = document.createElement('div');
+                aamoud.classList.add('aamoud');
+
+                const courseText = document.createElement('div');
+                courseText.classList.add('text');
+                courseText.style.marginLeft = '0';
+                courseText.textContent = `Course: ${nestedCourses[feed_Data[3]][1]} ${nestedCourses[feed_Data[3]][2]}`;
+
+                const knowledgeText = document.createElement('div');
+                knowledgeText.classList.add('text');
+                knowledgeText.id = 'k';
+                knowledgeText.textContent = `Knowledge level: ${feed_Data[2]}`;
+
+                const descriptionText = document.createElement('div');
+                descriptionText.classList.add('text');
+                descriptionText.textContent = 'Description:';
+
+                const description = document.createElement('div');
+                description.classList.add('description');
+                description.textContent = feedItem[2];
+
+                console.log("userId:", userId);
+
+                if (feed_Data[0] === userId) {
+                  console.log("request owner id:", feed_Data[0]);
+                  console.log("owner of post: ", feed_Data[1]);
+                  const deleteButton = document.createElement('div');
+                  deleteButton.classList.add('SBrequest', 'btn', 'btn-primary');
+                  deleteButton.id = 'request';
+                  deleteButton.textContent = 'Delete this request';
+                  card.appendChild(deleteButton);
+                } else {
+
+
+                  const organizeButton = document.createElement('button');
+                  organizeButton.type = 'button';
+                  organizeButton.id = 'request2';
+                  organizeButton.classList.add('btn', 'btn-primary');
+                  organizeButton.setAttribute('data-bs-toggle', 'modal');
+                  organizeButton.setAttribute('data-bs-target', '#exampleModal');
+                  organizeButton.textContent = `Organize a session ! `;
+                  card.appendChild(organizeButton);
+                }
+
+                // Assuming you have a reference to the owner's email in ownerInfo[5]
+                const ownerEmail = ownerInfo[5];
+
+                // Get the modal body element
+                const modalBody = document.querySelector('.modal-body');
+
+                // Create a paragraph element to display the email
+                if (!modalBody.querySelector('.email-paragraph')) {
+    const emailParagraph = document.createElement('p');
+    emailParagraph.classList.add('email-paragraph');
+    emailParagraph.textContent = ` ${ownerInfo[5]}`;
+    modalBody.appendChild(emailParagraph);
+  }
+
+                card.appendChild(profile);
+                card.appendChild(username);
+                card.appendChild(statusElement);
+                card.appendChild(aamoud);
+                card.appendChild(courseText);
+                card.appendChild(knowledgeText);
+                card.appendChild(descriptionText);
+                card.appendChild(description);
+
+
+                return card;
+              }
+            }
+          }
+
+          nestedRequests.forEach(function (request) {
+
+            const card = createCard(request);
+            if (card !== null) {
+              cardContainer.appendChild(card);
+            }
+          });
+
+
+
+
+
+
+
+          // if request sender is same as userId . we need status and delete 
+          // if request sender is not userId. we need organize a session
+
+          // function filterAndPopulateCards(filter) {
+          //   cardContainer.innerHTML = '';
+
+          //   const filteredRequests = requests.filter(request => {
+          //     if (filter === 'received') {
+          //       console.log('Debug 1');
+          //       console.log("Debug equal", request.Owner, "+", actual_user);
+          //       return request.Owner === actual_user;
+          //     } else if (filter === 'sent') {
+          //       console.log('Debug 2');
+          //       console.log("Debug diff", request.Requesting, "+", actual_user);
+          //       return request.Requesting === actual_user;
+          //     }
+          //     return true;
+          //   });
+
+          //   filteredRequests.forEach(filteredRequest => {
+          //     const card = createCard(filteredRequest);
+          //     cardContainer.appendChild(card);
+          //   });
+          // }
+
+          // filterAndPopulateCards('sent');
+
+          // const receivedFilter = document.getElementById('received');
+          // receivedFilter.addEventListener('click', function () {
+          //   filterAndPopulateCards('received');
+          // });
+
+          // const sentFilter = document.getElementById('sent');
+          // sentFilter.addEventListener('click', function () {
+          //   filterAndPopulateCards('sent');
+          // });
+        }
+      </script>
+</body>
+
+</html>

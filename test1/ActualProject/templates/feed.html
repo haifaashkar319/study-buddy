@@ -1,0 +1,600 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>STUDY BUDDY-Main Page</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/feed_style1.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+
+
+</head>
+
+
+<body>
+
+  <!-- CREATE POST -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="
+          font-size:30px;">Create a post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <textarea class="form-control" aria-label="With textarea" id="describe"
+              placeholder="Describe details like Professor of the course, timings you'd like, locations of studying..."
+              style="font-size:20px;"></textarea>
+          </div>
+          <div class="text" id="course-label">Course:
+
+            <br><br> Knowledge level: <br><br>
+          </div>
+          <input type="text" class="course-name" id="course-name" list="courses">
+          <datalist id="courses"></datalist>
+          <ul class="knowledge" id="list-in-dialogue">
+            <li id="one" stle=>1</li>
+            <li id="two">2</li>
+            <li id="three">3</li>
+            <li id="four">4 </li>
+            <li id="five">5</li>
+          </ul>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            style="margin-right:40px">Close</button>
+          <button type="button" class="btn btn-primary" id="postButton" style="
+        background-color:#082194">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <div class="header" id="nav">
+    <!-- <img src="Untitled design.png" alt="logo" class="logo"> -->
+
+    <div class="row">
+
+      <div class="col">
+        <img src="{% static 'img/sidebar.png' %}" alt="sidebar" class="sidebar" id="sidebar">
+      </div>
+
+      <div class="col-6" id="name">
+
+      </div>
+      <div class="col">
+
+        <div class="container-fluid">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search Course" aria-label="Search" id="search">
+            <button class="btn btn-outline-success" type="button" id="search-button">Search</button>
+            <div class="add-request btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              style="background-color: #082194;border:1px solid white;" id="post">Post</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebox" id="sideB">
+    <ul>
+      <a href="requests">
+        <li> Profile</li>
+      </a>
+      <!-- need to add these pages to url so change their names in href when u add them, the pages are about us and profile and sign_out -->
+      <a href='request/'>
+        <li>Requests</li>
+      </a>
+      <a href="about_us">
+        <li> About us</li>
+      </a>
+      <a href="sign_out">
+        <li> Sign out</li>
+      </a>
+    </ul>
+  </div>
+  <div class="page" id="page" style="overflow:scroll;">
+
+    <!-- CARD POST  -->
+
+    <div class="carde" id="card" style="display:none">
+      <div class="profile"> </div>
+      <div class="username">username</div>
+      <div class="aamoud"></div>
+      <div class="text" style="margin-left:0;">Course:</div>
+      <div class="text" id="">Knowledge level: </div>
+      <ul class="knowledge">
+        <li stle=>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <div class="text" id="DES">Description: </div>
+      <div class="description">Description would be here</div>
+    </div>
+    <!-- <div class="carde" id="card">
+        <div class="profile"> </div>
+        <div class= "username">username</div>
+        <div class="aamoud"></div>
+        <div class="text" style="margin-left:0;">Course:</div>
+        <div class="text" id="">Knowledge level: </div>
+        <ul class="Knowledge">
+          <li stle=>1</li>
+         <li>2</li>
+         <li>3</li>
+         <li>4</li>
+         <li>5</li>
+        </ul>
+        <div class="text" id= "DES">Description: </div>
+          <div class="description">Description would be here</div>
+      </div>
+      <div class="carde" id="card"></div>
+      <div class="carde" id="card"></div>
+
+      <div class="carde" id="card"></div>
+
+      <div class="carde" id="card"></div>
+
+      <div class="carde" id="card"></div> -->
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script>
+
+    console.log("start");
+    let courses;
+    let feedData;
+    let users;
+    let my_requests = [];
+    let userId = 12;
+
+
+
+
+    // Create a Promise to fetch the data
+    const fetchDataPromise = new Promise((resolve, reject) => {
+      fetch('/feedtable/')
+        .then(response => response.json())
+        .then(data => {
+          courses = data.course_table;
+          feedData = data.feedtable;
+          users = data.sign_up_pages_user;
+          userId = data.user_id;
+          console.log("userID", userId);
+          console.log("users", users);
+          console.log("courses:", courses);
+          console.log("feed", feedData);
+          resolve(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          reject(error);
+        });
+    });
+
+    // Use the fetched data outside the fetch function
+    fetchDataPromise.then(data => {
+
+      processData(data);
+    });
+
+    function processData(data) {
+      // Use courses, feedData, and users here as needed
+
+
+      const options = document.getElementById("sidebar");
+      const sidebox = document.getElementById("sideB");
+      options.addEventListener("click", function () {
+        if (sidebox.style.opacity == "0") {
+          sidebox.style.opacity = 1;
+        }
+        else {
+          sidebox.style.opacity = 0;
+
+        }
+      });
+      let nestedCourses = courses[0];
+      let nestedFeed = feedData[0];
+
+
+      const one = document.getElementById('one');
+      const two = document.getElementById('two');
+      const three = document.getElementById('three');
+      const four = document.getElementById('four');
+      const five = document.getElementById('five');
+
+
+      let knowledgeLevel;
+
+      function saveKnowledgeLevel(level) {
+        knowledgeLevel = level;
+        console.log("knowledge  ");
+        console.log("KnowledgeLevel: " + knowledgeLevel);
+      }
+
+      one.addEventListener("click", function () {
+        console.log("knowledge  ");
+        saveKnowledgeLevel("1");
+
+      });
+
+      two.addEventListener("click", function () {
+        saveKnowledgeLevel("2");
+      });
+      three.addEventListener("click", function () {
+        saveKnowledgeLevel("3");
+      });
+      four.addEventListener("click", function () {
+        saveKnowledgeLevel("4");
+      });
+      five.addEventListener("click", function () {
+        saveKnowledgeLevel("5");
+      });
+
+
+      console.log(knowledgeLevel);
+      //ADD THE POST CARD
+      const Course = document.getElementById("course-name");
+      const courseOptions = document.getElementById("courses");
+      let selectedcourse = "";
+      let selectedCourseSend;
+
+
+      // Function to generate option text
+
+      function generateOptionText(course) {
+
+        return `${course[1]} ${course[2]}`;
+      }
+
+
+
+      // Assuming you have fetched and populated the 'courses' array
+      nestedCourses.forEach(course => {
+        const option = document.createElement("option");
+        option.value = generateOptionText(course); // Generate the option text
+        courseOptions.appendChild(option);
+      });
+
+      Course.addEventListener("input", function () {
+        const inputValue = this.value;
+        courseOptions.innerHTML = "";
+
+        const filteredOptions = nestedCourses.filter(course => {
+          const optionText = generateOptionText(course);
+          const regex = new RegExp(inputValue, 'gi');
+          return optionText.match(regex);
+        });
+
+
+        filteredOptions.forEach(course => {
+          const option = document.createElement("option");
+          option.value = generateOptionText(course); // Generate the option text
+          courseOptions.appendChild(option);
+        });
+
+        selectedcourse = inputValue; // Set selected course based on input
+
+        
+
+
+        // Split the selectedcourse string into name and number
+        const [selectedCourseName, selectedCourseNumber] = selectedcourse.split(' ');
+
+        // Find a matching course in the courses array
+        const matchingCourse = nestedCourses.find(course => {
+          const [courseName, courseNumber] = course.slice(1); // Extract name and number from sub-array
+
+          return courseName === selectedCourseName && courseNumber === selectedCourseNumber;
+        });
+
+        if (matchingCourse) {
+          const selectedCourseSend = matchingCourse[0]; // Extract the course ID
+          console.log('Matching Course ID:', selectedCourseSend);
+        } else {
+          console.log('No matching course found.');
+        }
+        selectedCourseSend=selectedCourseSend;
+
+      });
+     
+      // let selectedCourseSend; // Declare it at a higher scope
+
+      Course.addEventListener("input", function () {
+        selectedcourse = this.value; // Update selected course when changed
+        console.log("selectedcoursehhhhh:", selectedcourse);
+        const [selectedCourseName, selectedCourseNumber] = selectedcourse.split(' ');
+
+        // Find a matching course in the courses array
+        const matchingCourse = nestedCourses.find(course => {
+          const [courseName, courseNumber] = course.slice(1); // Extract name and number from sub-array
+          return courseName === selectedCourseName && courseNumber === selectedCourseNumber;
+        });
+
+        if (matchingCourse) {
+          selectedCourseSend = matchingCourse[0]; // Extract the course ID
+          console.log('Matching Course ID:', selectedCourseSend);
+        } else {
+          console.log('No matching course found.');
+        }
+      });
+
+      Course.addEventListener("change", function () {
+        // Use the selectedCourseSend here if needed
+        console.log(' :', selectedCourseSend);
+      });
+
+      console.log("honghgjfbsuuljhaglcvl");
+
+      // Course.addEventListener("change", function () {
+      //   selectedcourse = this.value; // Update selected course when changed
+
+      //   console.log("selectedcoursehhhhh:", selectedcourse);
+      //   const [selectedCourseName, selectedCourseNumber] = selectedcourse.split(' ');
+        
+      //   // Find a matching course in the courses array
+      //   const matchingCourse = nestedCourses.find(course => {
+      //     const [courseName, courseNumber] = course.slice(1); // Extract name and number from sub-array
+
+      //     return courseName === selectedCourseName && courseNumber === selectedCourseNumber;
+      //   });
+
+      //   if (matchingCourse) {
+      //     const selectedCourseSend = matchingCourse[0]; // Extract the course ID
+      //     console.log(' :', selectedCourseSend);
+          
+      //   } else {
+      //     console.log('No matching course found.');
+      //   }
+      // });
+      // console.log(' :', selectedCourseSend);
+      // console.log("honghgjfbsuuljhaglcvl");
+
+      //DISPLAY POSTS
+
+
+      function createCarde(feedData) {
+        console.log("hon", feedData[1]);
+        const cardeDiv = document.createElement('div');
+        cardeDiv.classList.add('carde');
+
+        const profileDiv = document.createElement('div');
+        profileDiv.classList.add('profile');
+
+        const usernameDiv = document.createElement('div');
+        usernameDiv.classList.add('username');
+        //it is taking the index, irt is not taking the id to match it 
+        //fix this
+        usernameDiv.textContent = users[0][feedData[1]][1] + " " + users[0][feedData[1]][2];
+        //fetch first and last name from users 
+
+        const aamoud = document.createElement('div');
+        aamoud.classList.add("aamoud");
+
+        const courseDiv = document.createElement('div');
+        courseDiv.classList.add('text');
+        courseDiv.style.display = 'block';
+        courseDiv.style.marginLeft = '0px';
+        courseDiv.textContent = "Course: " + nestedCourses[feedData[4]][1] + " " + nestedCourses[feedData[4]][2];
+
+
+        const knowledgeDiv = document.createElement('div');
+        knowledgeDiv.classList.add('text');
+        knowledgeDiv.id = 'k';
+        knowledgeDiv.style.textAlign = 'left';
+        knowledgeDiv.style.display = 'block';
+        knowledgeDiv.textContent = 'Knowledge level: ' + feedData[3];
+
+        const descriptionDiv = document.createElement('div');
+        descriptionDiv.classList.add('text');
+        // descriptionDiv.id = 'DES';
+
+        descriptionDiv.style.marginLeft = '0px';
+        descriptionDiv.style.textAlign = 'left';
+        descriptionDiv.textContent = 'Description:';
+
+        const descriptionContentDiv = document.createElement('div');
+        descriptionContentDiv.classList.add('description');
+        descriptionContentDiv.textContent = feedData[2];
+
+        let requestButton; // Declare the variable here
+
+
+
+        if (feedData[1] !== userId) {
+          requestButton = document.createElement('div');
+          requestButton.classList.add('SBrequest', 'btn', 'btn-primary');
+          requestButton.id = 'request';
+          requestButton.textContent = 'Request a study session';
+
+          requestButton.addEventListener('click', () => {
+
+            const requestObject = {
+              request_sender: userId,
+              request_receiver: feedData[1],
+              feed_id: feedData[0]
+            };
+
+            my_requests.push(requestObject);
+            console.log("Request added:", requestObject);
+          });
+        }
+
+        // Append elements to the "carde" div (outside of the if statement)
+        cardeDiv.appendChild(profileDiv);
+        cardeDiv.appendChild(usernameDiv);
+        cardeDiv.appendChild(courseDiv);
+        cardeDiv.appendChild(knowledgeDiv);
+        cardeDiv.appendChild(aamoud);
+        cardeDiv.appendChild(document.createElement("br"));
+        cardeDiv.appendChild(document.createElement("br"));
+        cardeDiv.appendChild(document.createElement("br"));
+        cardeDiv.appendChild(document.createElement("br"));
+        cardeDiv.appendChild(descriptionDiv);
+        cardeDiv.appendChild(descriptionContentDiv);
+
+        // If the requestButton exists (Feed_Owner condition met), append it
+        if (requestButton) {
+          cardeDiv.appendChild(requestButton);
+          // Attach the event listener for the request button
+          requestButton.addEventListener('click', () => {
+            // Handle the click event as needed
+          });
+        }
+
+        return cardeDiv;
+      }
+
+      // Get the card container
+      const cardContainer = document.getElementById('page');
+
+      // Create and append "carde" elements for each feed item
+      console.log("check10");
+
+      // uncomment this and comment the line under it 
+           nestedFeed.forEach(function (feedData) {
+             if (feedData[5] !== false) {
+         const card = createCarde(feedData);
+         cardContainer.appendChild(card);
+       }
+           });
+      // const carde = createCarde(nestedFeed[0]);
+      // cardContainer.appendChild(carde);
+
+
+      function findMatches(wordToMatch, nestedFeed) {
+        return nestedFeed.filter(feedItem => {
+          const regex = new RegExp(wordToMatch, 'gi');
+          const courseIndex = feedItem[4]; // Use the 4th element (index 3) as the course index
+          if (nestedCourses[courseIndex]) {
+            const courseName = nestedCourses[courseIndex][1]; // Assuming course name is at index 1
+
+            // Check if the course name is not undefined before using match
+            if (courseName !== undefined) {
+              return courseName.match(regex);
+            }
+          }
+          return false;
+        });
+      }
+
+
+      //fix search
+
+      function displayMatches(searchValue) {
+        const matchArray = findMatches(searchValue, nestedFeed);
+        cardContainer.innerHTML = '';
+        matchArray.forEach((card) => {
+          const searchCard = createCarde(card);
+          cardContainer.appendChild(searchCard);
+        });
+        console.log(matchArray);
+      }
+
+      const searchButton = document.querySelector('#search-button');
+      searchButton.addEventListener('click', function () {
+        const searchInput = document.querySelector('#search');
+        displayMatches(searchInput.value);
+      });
+
+      console.log("checkkkk");
+
+  
+
+
+      //SAVE DETAILS
+
+
+
+
+
+      document.getElementById('postButton').addEventListener('click', function () {
+        const detailsInput = document.getElementById('describe');
+        const detailsValue = detailsInput.value;
+        console.log("check hete");
+        console.log(detailsValue);
+        //SAVE COURSE
+      console.log("checkkkkkkkkk",selectedCourseSend);
+
+        ////feeeeeeeeedddddd variabless
+        updatedFeed = []
+        //SHOW CREATED POST
+        const newPostId = nestedFeed[0].length + 1;
+        const newFeedItem = {
+          newPostId,
+          userId,
+          detailsValue,
+          knowledgeLevel,
+          selectedCourseSend,
+
+        };
+        console.log(newFeedItem);
+
+      
+        const url = `/create_feed/?newPostId=${newPostId}&userId=${userId}&detailsValue=${detailsValue}&knowledgeLevel=${knowledgeLevel}&selectedcourse=${selectedCourseSend}`;
+
+        // Redirect the user to the URL
+        window.location.href = url;
+       
+
+
+
+        updatedFeed.push(newFeedItem);
+        console.log(updatedFeed);
+
+        $('#exampleModal').modal('hide');
+
+        // const lastIndex = feed_Data.length - 1;
+        // const lastFeedItem = feed_Data[lastIndex];
+
+        // $('#exampleModal').modal('hide');
+
+        // Create a new card based on the last item
+
+
+        // const card = createCarde(newFeedItem);
+
+        //     // Append the card to the cardContainer
+        //     cardContainer.appendChild(card);
+        //      courseInput.value = '';
+        //      detailsInput.value = '';
+
+        // $('#exampleModal').modal('hide');
+
+      });
+    }
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

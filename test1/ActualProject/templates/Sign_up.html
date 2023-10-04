@@ -1,0 +1,468 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Sign-up Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sign_up_css.css' %}"> 
+    <!-- {% static 'img/' %} -->
+
+</head>
+<body>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!--take input from button -->
+     <!-- <script>
+        function sendGender(gender) {
+            // Create a form element dynamically
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+    
+            // Create an input element for the CSRF token
+            var csrfTokenInput = document.createElement("input");
+            csrfTokenInput.setAttribute("type", "hidden");
+            csrfTokenInput.setAttribute("name", "csrfmiddlewaretoken");
+            csrfTokenInput.setAttribute("value", "{{ csrf_token }}"); // Include the CSRF token value
+    
+            // Create an input element to hold the gender value
+            var genderInput = document.createElement("input");
+            genderInput.setAttribute("type", "hidden");
+            genderInput.setAttribute("name", "gender");
+            genderInput.setAttribute("value", gender);
+    
+            // Append the CSRF token input and gender input to the form
+            form.appendChild(csrfTokenInput);
+            form.appendChild(genderInput);
+    
+            // Append the form to the document and submit it
+            document.body.appendChild(form);
+            // form.submit();
+        }
+    </script> -->
+    <div class="sign-up-container">
+
+        <form action=" " method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="text">STUDY</div>
+            <div class="text" id="buddy">BUDDY</div>
+            <div class="text" id="quote">FIND YOUR STUDY PARTNER WITH A CLICK!</div>
+            <img src="{% static 'img\Untitled design.png' %}" alt="logo" class="logo">
+            <div class="profile-picture">
+                <div class="span1">Profile Picture:</div>
+                <div class="picture"></div>
+                <input type="file" id="ImageUpload" accept="image/*" style="display: none;" name="photo"> <!-- UPDATED HEREE -->
+
+                <div class="button" id="Choose-from-gallery">Choose from gallery</div>
+
+
+
+            </div>
+            <div class="aamoud"></div>
+            <div class="aamoud2"> </div>
+            <div class="aamoud3"></div>
+
+            <div class="credentials">
+                <div class="span1">First Name:</div>
+                <input type="text" id="firstName" placeholder="Enter name here" name="firstName"> <!-- UPDATED HEREE -->
+                <div class="span1" id="LN">Family Name:</div>
+                <input type="text" id="lastName" placeholder="Enter name here" name="lastName"> <!-- UPDATED HEREE -->
+            </div>
+
+            <!-- <div class="gender">
+                <div class="span1">Gender:</div>
+                <div class="button" id="male" onclick="sendGender('Male')">Male</div>
+                <div class="button" id="female" onclick="sendGender('Female')">Female</div>
+                <div class="button" id="flop" onclick="sendGender('Rather not say')">Rather not say</div>
+            </div> -->
+
+            <div class="gender">
+                <div class="span1" id="g">Gender:</div>
+                <label for="male" class="span1" id="m" >M</label>
+                <input type="radio" class="button" id="male" name="gender" value="Male" onclick="updateGender('Male')">
+                <label for="female" class="span1" id="f">F</label>
+                <input type="radio" id="female"  class="button"  name="gender" value="Female" onclick="updateGender('Female')">
+                <label for="rather-not-say" class="span1" id="r">Rather not say</label>
+                <input type="radio" id="flop"  class="button" name="gender" value="Rather not say" onclick="updateGender('Rather not say')">
+            </div>
+        
+            <!-- Input field to store the selected gender -->
+            <input type="hidden" id="selectedGender" name="selectedGender" value="">
+        
+
+            <div class="UNI-info">
+                <div class="span1" id="gpa-label">GPA:</div>
+                <input type="text" id="GPA" placeholder="(cumulative)" name="gpa"><!-- UPDATED HEREE -->
+                <div class="span1" id="major-label">Major:</div>
+                <!-- <input type="text" id="Major" name="major" placeholder="Select your major" list="majors">
+                <datalist id="majors"></datalist> -->
+                <select id="Major" name="major">
+                    <option value="">Select your major</option>
+                    <option value="Agri-Business">Agri-Business</option>
+                    <option value="Agri Culture">Agri Culture</option>
+                    <option value="Applied Mathematics">Applied Mathematics</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Archaeology">Archaeology</option>
+                    <option value="Architecture">Architecture</option>
+                    <option value="Art History">Art History</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Business Administration">Business Administration</option>
+                    <option value="Chemical Engineering">Chemical Engineering</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Civil and Environmental Engineering">Civil and Environmental Engineering</option>
+                    <option value="Computer and Communications Engineering">Computer and Communications Engineering</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Construction Engineering">Construction Engineering</option>
+                    <option value="Economics">Economics</option>
+                    <option value="Electrical and Computer Engineering">Electrical and Computer Engineering</option>
+                    <option value="Elementary Education">Elementary Education</option>
+                    <option value="English Language">English Language</option>
+                    <option value="English Literature">English Literature</option>
+                    <option value="Environmental Health">Environmental Health</option>
+                    <option value="Food Sciences and Management">Food Sciences and Management</option>
+                    <option value="Geology">Geology</option>
+                    <option value="Graphic Design">Graphic Design</option>
+                    <option value="Health Communication">Health Communication</option>
+                    <option value="History">History</option>
+                    <option value="Industrial Engineering">Industrial Engineering</option>
+                    <option value="Landscape Architecture">Landscape Architecture</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Media and Communication">Media and Communication</option>
+                    <option value="Medical Imaging Sciences">Medical Imaging Sciences</option>
+                    <option value="Medical Laboratory Sciences">Medical Laboratory Sciences</option>
+                    <option value="Nursing BA/BS-BSN">Nursing BA/BS-BSN</option>
+                    <option value="Nursing BSN">Nursing BSN</option>
+                    <option value="Nursing RN-BSN">Nursing RN-BSN</option>
+                    <option value="Nutrition and Dietetics">Nutrition and Dietetics</option>
+                    <option value="Nutrition and Dietetics Coordinated Program">Nutrition and Dietetics Coordinated Program</option>
+                    <option value="Petroleum Geosciences">Petroleum Geosciences</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Political Studies">Political Studies</option>
+                    <option value="Psychology">Psychology</option>
+                    <option value="Public Administration">Public Administration</option>
+                    <option value="Sociology-Anthropology">Sociology-Anthropology</option>
+                    <option value="Statistics">Statistics</option>
+                    <option value="Studio Arts">Studio Arts</option>
+                </select>
+                
+                
+            </div>
+           
+            <div class="email-n-phone">
+                <div class="span1">Enter Email:</div>
+                <input type="email" id="email" placeholder="Enter your email" name="email"> <!-- UPDATED HEREE -->
+                <div class="span1" id="phone">Enter Phone:</div>
+                <input type="text" id="number" placeholder="Number should include prefix (ex: +961 for Lebanon)"
+                    name="phonenumber"> <!-- UPDATED HEREE -->
+            </div>
+            <div class="password">
+                <div class="span1">Password:</div>
+                <input type="text" id="password" placeholder="Enter your password" name="password">
+                <!-- UPDATED HEREE -->
+                <div class="span1" id="confirmation">Confirm Password: </div>
+                <input type="text" id="password-confirmed" placeholder="Confirm your password"
+                    name="password-confirmed"> <!-- UPDATED HEREE -->
+            </div>
+
+    </div>
+  
+
+    <button type="submit" class="button" id="Save">Save</button>
+    <div class="button" id="Cancel">Cancel</div>
+    </form>
+    </div>
+  
+
+<!-- Js by Maya for the gender selection: -->
+
+    <script>
+        function updateGender(gender) {
+            document.getElementById('selectedGender').value = gender;
+        }
+        console.log("hello");
+    </script>
+   
+<!-- ends here -->
+
+    <script>
+        console.log("hello");
+          let selectedImageFile;
+        const maleButton = document.getElementById("male");
+        const femaleButton = document.getElementById("female");
+        const flopButton = document.getElementById("flop");
+        const Major = document.getElementById("Major");
+        const majorOptions = document.getElementById("majors");
+        const imageUploadInput = document.getElementById("ImageUpload");
+        const chooseFromGalleryButton = document.getElementById("Choose-from-gallery");
+        const profilePicture = document.getElementById("profilePicture");
+
+
+      
+
+        maleButton.addEventListener("click", function () {
+            maleButton.style.backgroundColor = "#a8b6f3";
+            femaleButton.style.backgroundColor = "white";
+            flopButton.style.backgroundColor = "white";
+        });
+
+        femaleButton.addEventListener("click", function () {
+            maleButton.style.backgroundColor = "white";
+            femaleButton.style.backgroundColor = "#a8b6f3";
+            flopButton.style.backgroundColor = "white";
+        });
+
+        flopButton.addEventListener("click", function () {
+            maleButton.style.backgroundColor = "white";
+            femaleButton.style.backgroundColor = "white";
+            flopButton.style.backgroundColor = "#a8b6f3";
+        });
+
+        //will later get the majors from the database
+        const majors = ["cce", "cs", "med", "civil", "majora",
+            "majorb", "majorc", "majord", "majore", "majorf", "majorg",
+            "majorh", "majori", "majorj", "majork", "majorl", "majorm"];
+        let selectedMajor = "";
+
+        majors.forEach(optionText => {
+            const option = document.createElement("option");
+            option.value = optionText;
+            majorOptions.appendChild(option);
+
+        });
+
+        Major.addEventListener("input", function () {
+            const inputValue = this.value;
+            majorOptions.innerHTML = "";
+
+            const filteredOptions = majors.filter(option => {
+                const regex = new RegExp(inputValue, 'gi');
+                return option.match(regex);
+
+            });
+
+            filteredOptions.forEach(optionText => {
+                const option = document.createElement('option');
+                option.value = optionText;
+                majorOptions.appendChild(option);
+            });
+            selectedMajor = inputValue;
+        });
+        Major.addEventListener("change", function () {
+            selectedMajor = this.value; 
+            console.log("try");
+            console.log("Selected major: " + selectedMajor); 
+        });
+
+
+       
+
+      
+
+        imageUploadInput.addEventListener("change", function () {
+            selectedImageFile = imageUploadInput.files[imageUploadInput.files.length - 1];
+            if (selectedImageFile && selectedImageFile.type.startsWith("image/")) {
+                const imageURL = URL.createObjectURL(selectedImageFile);
+                profilePicture.style.backgroundImage = `url('${imageURL}')`;
+                console.log("Image file in userData:", selectedImageFile);
+            }
+        });
+
+        chooseFromGalleryButton.addEventListener("click", function () {
+            imageUploadInput.click();
+        });
+
+        //Check firstName,lastName,major
+        const firstNameInput = document.getElementById("firstName");
+        const lastNameInput = document.getElementById("lastName");
+        const majorInput = document.getElementById("Major");
+        const gpaInput = document.getElementById("GPA");
+        const emailInput = document.getElementById("email");
+        const numberInput = document.getElementById("number");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("password-confirmed");
+
+
+        firstNameInput.addEventListener("input", validateInput);
+        lastNameInput.addEventListener("input", validateInput);
+        majorInput.addEventListener("input", validateInput);
+        gpaInput.addEventListener("input", validateInput);
+        emailInput.addEventListener("input", validateInput);
+        numberInput.addEventListener("input", validatePhoneNumber);
+        passwordInput.addEventListener("input", validatePassword);
+        confirmPasswordInput.addEventListener("input", validatePassword);
+
+        function containsOnlyLetters(input) {
+            const regex = /^[A-Za-z]*$/;
+            return regex.test(input);
+        }
+
+        function isGpaValid(input) {
+            const gpa = parseFloat(input);
+            return !isNaN(gpa) && gpa >= 0 && gpa <= 4.3;
+        }
+
+        function isEmailValid(input) {
+            const emailRegex = /^[a-zA-Z]{3}\d{2}@mail\.aub\.edu$/;
+            return emailRegex.test(input);
+        }
+
+        function isPhoneValid(input) {
+            const phoneRegex = /^(?:\+\d{1,4}\s*)?\d{8}$/;
+            return phoneRegex.test(input);
+        }
+
+        function isStrongPassword(input) {
+            // Check if the input is a strong password (at least 8 characters, with at least one uppercase letter, one lowercase letter, and one digit)
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            return passwordRegex.test(input);
+        }
+
+
+        function validateInput() {
+            // Get the current value of the input field
+            const inputValue = this.value; // 'this' refers to the input element that triggered the event
+            const inputId = this.id;
+
+            if (inputId === "GPA") {
+                // Check if the GPA input is valid
+                if (isGpaValid(inputValue)) {
+                    this.style.border = "#082194 2px solid";
+                } else {
+                    // this.style.border ="red 2px solid";
+                    this.style.border = "red 2px solid";
+                    console.log("invalid gpa");
+                }
+            } else if (inputId === "email") {
+                // Check if the email input is valid
+                if (isEmailValid(inputValue)) {
+                    this.style.border = "#082194 2px solid";
+                    console.log("valid email");
+                } else {
+                    this.style.border = "red 2px solid";
+                    console.log("invalid email");
+
+                }
+            } else {
+                // Check for letters-only inputs
+                if (containsOnlyLetters(inputValue)) {
+                    this.style.border = "#082194 2px solid";
+                } else {
+                    this.style.border = "red 2px solid";
+                    console.log("invalid letters");
+                }
+            }
+        }
+
+        //check for gpa 
+
+
+        function validatePhoneNumber() {
+            const inputValue = this.value;
+
+            // Check if the phone number input is valid
+            if (isPhoneValid(inputValue)) {
+                this.style.border = "#082194 2px solid";
+                console.log("valid");
+            } else {
+                this.style.border = "red 2px solid";
+                console.log("invaild");
+            }
+        }
+
+        function validatePassword() {
+            const passwordValue = passwordInput.value;
+            const confirmPasswordValue = confirmPasswordInput.value;
+
+            if (!isStrongPassword(passwordValue)) {
+                passwordInput.style.border = "2px solid red";
+            }
+            else {
+                passwordInput.style.border = "2px solid #082194";
+            }
+            // Check if the passwords match and are strong
+            if (passwordValue === confirmPasswordValue && isStrongPassword(passwordValue)) {
+                passwordInput.style.border = "2px solid #082194";
+                confirmPasswordInput.style.border = "2px solid #082194";
+            } else {
+
+                confirmPasswordInput.style.border = "2px solid red";
+            }
+        }
+
+        function validateForm() {
+            // Check firstName, lastName, major, GPA, email, phone number, and passwords
+            const isValidFirstName = containsOnlyLetters(firstNameInput.value);
+            const isValidLastName = containsOnlyLetters(lastNameInput.value);
+            const isValidMajor = containsOnlyLetters(majorInput.value);
+            const isValidGPA = isGpaValid(gpaInput.value);
+            const isValidEmail = isEmailValid(emailInput.value);
+            const isValidPhoneNumber = isPhoneValid(numberInput.value);
+            const isValidPassword = isStrongPassword(passwordInput.value);
+            const arePasswordsMatching = passwordInput.value === confirmPasswordInput.value;
+            if (
+                !isValidFirstName ||
+                !isValidLastName ||
+                !isValidMajor ||
+                !isValidGPA ||
+                !isValidEmail ||
+                !isValidPhoneNumber ||
+                !isValidPassword ||
+                !arePasswordsMatching
+            ) {
+                if (!isValidFirstName || !isValidLastName) {
+                    // Show an alert if there are validation errors
+                    window.alert("Please correct the invalid fields before saving.");
+                    return false;
+                }
+            }
+
+            // All fields are valid; you can proceed with form submission
+            return true;
+        }
+
+        // Event listener for the "Save" button
+        const saveButton = document.getElementById("Save");
+        saveButton.addEventListener("click", function () {
+            // Validate the form when the "Save" button is clicked
+            const isFormValid = validateForm();
+
+            // If the form is not valid, prevent submission
+            if (!isFormValid) {
+                event.preventDefault(); // Prevent the form from being submitted
+            }
+        });
+        let setSelectedGender;
+        function setSelectedGender(gender) {
+            selectedGender = gender;
+            console.log("Selected gender: " + selectedGender); // Log the selected gender
+        }
+
+        maleButton.addEventListener("click", function () {
+            setSelectedGender("Male");
+        });
+
+        femaleButton.addEventListener("click", function () {
+            setSelectedGender("Female");
+        });
+
+        flopButton.addEventListener("click", function () {
+            setSelectedGender("Rather not say");
+        });
+
+        // Assuming you have a form with the ID "myForm"
+        const myForm = document.getElementById("myForm");
+
+        myForm.addEventListener("submit", function () {
+            // Handle the form submission here
+        });
+       
+
+        console.log("hi")
+    </script>
+
+
+
+</body>
+
+</html>

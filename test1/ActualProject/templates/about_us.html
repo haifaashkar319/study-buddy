@@ -1,0 +1,167 @@
+{% load static %}
+<!-- {% static 'css/about_us css.css' %} -->
+<!-- {% static 'img/pic2.png' %} -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDY BUDDY-Profile Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/about_us css.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class=" title">Get to know us!</div>
+        <img src="{% static 'img/sidebar.png' %}" alt="sidebar" class="sidebar" id="sidebar">
+    </div>
+    <div class="row-container" id="one">
+        <div class="maincontainer center-card">
+            <div class="thecard" id="card">
+                <div class="thefront">
+                    <img src="{% static 'img/WhatsApp Image 2023-10-04 at 11.34.42_dcb0c5c5.jpg' %}" class="nael">
+                    <div class="foot">
+                        <ul>
+                            <li>Nael Haidar</li>
+                            <li>Front-End Developer</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="theback">I'm Nael Haidar, a 3rd year CCE student at AUB. My passion lies in diving headfirst
+                    into software development and expanding my knowledge in the realm of technology. Beyond that, I
+                    spend my leisure time teaching myself to play classical piano pieces. I find my journey in AUB has
+                    not only enriched my academic knowledge, but also provided me with valuable life experiences and
+                    friendships that I am very grateful for!</div>
+            </div>
+        </div>
+        <div class="maincontainer center-card">
+            <div class="thecard" id="hayfa">
+                <div class="thefront">
+                    <img src="{% static 'img/hayfa.jpg' %}" class="hayfa">
+                    <div class="foot">
+                        <ul>
+                            <li>Haifa Al Ashkar</li>
+                            <li>Front-End Developer</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="theback">Hello! I’m Haifa, athird year Computer and communications engineer at AUB. I worked on
+                    multiple projects in both software and hardware engineering. Besides tech, I really enjoy reading lots of books and drawing sketches </div>
+            </div>
+        </div>
+        <div class="maincontainer center-card">
+            <div class="thecard" id="maya">
+                <div class="thefront">
+                    <img src="{% static 'img/maya.jpg' %}" class="maya">
+                    <div class="foot">
+                        <ul>
+                            <li>Maya Ali</li>
+                            <li>Back-End Developer</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="theback">Hello! I’m Maya Ali, a Computer and communications engineer at AUB. I worked on
+                    multiple projects developing software and hardware systems such as graph analyzer and pipelined
+                    processor datapath.
+                    I like playing indie horror video games in my and obviously I like coding! </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-containerr" id="two">
+
+        <div class="maincontainer center-card">
+            <div class="thecard" id="youri">
+                <div class="thefront">
+                    <img src="{% static 'img/youri.jpg' %}" class="youri">
+                    <div class="foot" style="text-align: center;">
+                        <ul>
+                            <li>Youri Klim</li>
+                            <li>Back-End Developer</li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <div class="theback">I'm Youri Klim, a third-year AUB student majoring in Computer and Communications
+                    Engineering with an Economics minor. I'm passionate about technology and participate in IEEE and ACM
+                    competitive programming. I'm also interested in finance and led fundraisers at Rotaract Beirut
+                    Center. In my free time, I enjoy playing classical guitar and recently took up tennis.</div>
+            </div>
+        </div>
+        <div class="maincontainer center-card">
+            <div class="thecard" id="nancy">
+                <div class="thefront">
+                    <img src="{% static 'img/nancy.jpg' %}" class="nancy">
+                    <div class="foot">
+                        <ul>
+                            <li>Nancy Fayad</li>
+                            <li>Product Manager</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="theback">My name is Nancy Fayad, and I am a mechanical engineering student. I have always
+                    had a broad interest in engineering applications of various fields. I always aim to give back to the
+                    community, and most importantly, educate.</div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebox" id="sideB">
+        <ul>
+            <li><a href="profile"> Profile</a></li>
+            <li><a href="request/"> Requests</a></li>
+            <li><a href="about_us"> About us</a></li>
+            <li><a href="sign_out"> Sign out</a></li>
+        </ul>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        // Sidebar functionality
+        const options = document.getElementById("sidebar");
+        const sidebox = document.getElementById("sideB");
+        options.addEventListener("click", function () {
+            if (sidebox.style.opacity == "0") {
+                sidebox.style.opacity = 1;
+            } else {
+                sidebox.style.opacity = 0;
+            }
+        });
+
+        // Card flipping functionality
+        addRotationEffect("card");
+        addRotationEffect("hayfa");
+        addRotationEffect("maya");
+        addRotationEffect("youri");
+        addRotationEffect("nancy");
+
+        function addRotationEffect(cardId) {
+            const card = document.getElementById(cardId);
+            let isRotated = false;
+
+            card.addEventListener("click", function (event) {
+                event.stopPropagation(); // Stop the click event from propagating
+                if (isRotated) {
+                    card.style.transform = "rotateY(0deg)";
+                } else {
+                    card.style.transform = "rotateY(180deg)";
+                }
+                isRotated = !isRotated;
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

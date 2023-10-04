@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Sign-up Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sign_in_css1.css' %}">
+    <!-- {% static 'img/' %} -->
+
+</head>
+<body>
+    
+    <div class="sign-in-container">
+    <form method="post" action="{% url 'sign_in' %}?next=/feed/"> {% csrf_token %}     
+        <div class="text">STUDY</div>
+          <div class="text" id="buddy">BUDDY</div>
+          <div class="text" id="quote">FIND YOUR STUDY PARTNER WITH A CLICK!</div>
+              <img src="{% static 'img\Untitled design.png' %}" alt="logo" class="logo">
+              <div class="email-n-phone">
+                  <div class="span1">Enter Email:</div>
+                  <input type="email" id="email" placeholder="Enter your email" name="email">
+                  <div class="span1" id="password">Enter Password:</div>
+                  <input type="text" id="number" placeholder="Enter your password" name="password">
+                  <div class="span1" id="forgot">Forgot Password?</div>
+                  <!-- <div class="button" id="Save">Save</div>
+                  <div class="button" id="Cancel">Cancel</div> -->
+              </div>
+            <button type="submit" class="button" id="Save">Save</button>
+            <div class="button" id="Cancel">Cancel</div> 
+      </form>
+    </div>
+
+
+
+
+</body>
+</html>
